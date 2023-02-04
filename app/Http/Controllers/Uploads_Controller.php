@@ -36,12 +36,12 @@ class Uploads_Controller extends BaseController
             }
         } catch (\Throwable $th) {
             return response()->json([
-                'status' => 'Files not uploaded',
+                'status' => 'error',
                 'message' => $th->getMessage()
             ]);
         }
         return response()->json([
-            'status' => 'Files uploaded successfully',
+            'status' => 'success',
             'message' => 'Files uploaded successfully'
         ]);
     }
