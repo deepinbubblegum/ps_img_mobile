@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Take_img;
 
+use App\Http\Controllers\Uploads_Controller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,3 +18,6 @@ use App\Http\Controllers\Take_img;
 Route::get('/', function () {
     return view('mobile');
 });
+
+// route for uploads multiple files
+Route::post('/uploads', [Uploads_Controller::class, 'upload_files']);
