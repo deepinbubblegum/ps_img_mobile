@@ -31,7 +31,6 @@ class Uploads_Controller extends BaseController
             // upload files
             $files = $request->file('files');
             $files = is_array($files) ? $files : [$files];
-            var_dump($files);
             foreach ($files as $file) {
                 $file->storeAs('public/' . $directory, $file->getClientOriginalName());                
             }
