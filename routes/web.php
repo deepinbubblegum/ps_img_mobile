@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Take_img;
+use App\Http\Controllers\View_img;
 
 use App\Http\Controllers\Uploads_Controller;
 /*
@@ -15,9 +15,13 @@ use App\Http\Controllers\Uploads_Controller;
 |
 */
 
-Route::get('/', function () {
-    return view('mobile');
-});
+// Route::get('/{id}', function () {
+//     return view('mobile');
+// });
+
+Route::get('/{path}', [View_img::class, 'main']);
+
+Route::get('Download/{path}', [View_img::class, 'Download']);
 
 // route for uploads multiple files
 Route::post('/uploads', [Uploads_Controller::class, 'upload_files']);
