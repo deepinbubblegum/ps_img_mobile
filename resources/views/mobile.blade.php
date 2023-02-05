@@ -22,9 +22,12 @@
 
         <div class="p-5 text-center div_preview_video">
             <div class="embed-responsive embed-responsive-16by9 text-center">
-                <iframe class="embed-responsive-item text-center" id="frame_video"
+                {{-- <iframe class="embed-responsive-item text-center" id="frame_video"
                     src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen>
-                </iframe>
+                </iframe> --}}
+                <video id="frame_video" autoplay loop>
+                    <source id="_video" src="" type="video/mp4" />
+                </video>
             </div>
         </div>
 
