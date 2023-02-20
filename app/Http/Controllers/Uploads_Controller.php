@@ -9,16 +9,17 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class Uploads_Controller extends BaseController
 {
     public function upload_files(Request $request)
     {
         try {
-
             // Uploads in storage/app/public folder and create directory name if not exists
             // create directory in storage/app/public
             $recv = $request->all();
+            $id = $recv['id'];
             $directory = $recv['directory'];
             $path = storage_path('app/public/' . $directory);
             // dd($path);
@@ -34,6 +35,12 @@ class Uploads_Controller extends BaseController
             foreach ($files as $file) {
                 $file->storeAs('public/' . $directory, $file->getClientOriginalName());                
             }
+
+            DB::table('uploads')->insert([
+                'id' => $id,
+                'path_dir' => $directory,
+                'created_at' => now()
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
