@@ -5,6 +5,7 @@ use App\Http\Controllers\View_img;
 
 use App\Http\Controllers\Uploads_Controller;
 use App\Http\Controllers\Users_Controller;
+use App\Http\Controllers\UserGallery_Controller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +21,9 @@ use App\Http\Controllers\Users_Controller;
 //     return view('mobile');
 // });
 
-Route::get('/{path}', [View_img::class, 'main']);
+Route::get('/{user_id}', [UserGallery_Controller::class, 'UserGallery']);
+
+Route::get('/view/{user_id}/{path}', [View_img::class, 'main']);
 
 Route::get('Download/{path}', [View_img::class, 'Download']);
 

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Storage;
 
 class View_img extends BaseController
 {
-    function main($path_file)
+    function main($user_id, $path_file)
     {
         // $path = Storage::disk(`public/$path_file`);
         $files = Storage::disk('public')->files($path_file);
