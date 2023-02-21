@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class Uploads_Controller extends BaseController
 {
@@ -37,9 +38,10 @@ class Uploads_Controller extends BaseController
             }
 
             DB::table('uploads')->insert([
-                'id' => $id,
+                'user_id' => $id,
                 'path_dir' => $directory,
-                'created_at' => now()
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
         } catch (\Throwable $th) {
             return response()->json([
