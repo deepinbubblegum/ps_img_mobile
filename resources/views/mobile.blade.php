@@ -17,17 +17,27 @@
     {{-- {{dd($path_file)}} --}}
 
     @php
-
-    $result = array_filter($arr, function ($obj) {
-    return $obj->type == 'video/mp4';
-    });
-
-    $img = array_filter($arr, function ($obj) {
-    return $obj->type != 'video/mp4';
-    });
-
-    $video = array_values($result)[0]->file;
-    $img = array_values($img)[0]->file;
+        
+        $result = array_filter($arr, function ($obj) {
+            return $obj->type == 'video/mp4';
+        });
+        
+        $images = array_filter($arr, function ($obj) {
+            return $obj->type != 'video/mp4';
+        });
+        
+        try {
+            $video = array_values($result)[0]->file;
+        } catch (Exception $e) {
+            $video = null;
+        }
+        
+        // try {
+        //     $img = array_values($img)[0]->file;
+        // } catch (\Throwable $th) {
+        //     $img = null;
+        // }
+        
     @endphp
 
     <div>
@@ -37,18 +47,23 @@
 
         <div class="p-5 text-center div_preview_video">
             <div class="embed-responsive embed-responsive-16by9 text-center">
-                {{-- <iframe class="embed-responsive-item text-center" id="frame_video"
-                    src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen>
-                </iframe> --}}
-                <video id="frame_video" autoplay loop controls style="width: 100%">
-                    <source id="_video" src="{{ asset('storage/'.$video) }}" type="video/mp4" />
-                </video>
+                @if ($video != null)
+                    <video id="frame_video" autoplay loop controls style="width: 100%">
+                        <source id="_video" src="{{ asset('storage/' . $video) }}" type="video/mp4" />
+                    </video>
+                @endif
             </div>
         </div>
 
-        <div class="p-5 text-center div_preview_img">
-            <img src="{{ asset('storage/'.$img) }}" class="img-fluid">
-        </div>
+        @foreach ($images as $image)
+            <div class="p-5 text-center div_preview_img">
+                <img src="{{ asset('storage/' . $image->file) }}" class="img-fluid">
+            </div>
+        @endforeach
+
+        {{-- <div class="p-5 text-center div_preview_img">
+            <img src="{{ asset('storage/' . $img) }}" class="img-fluid">
+        </div> --}}
 
         <div class="footer_text">
 
@@ -76,21 +91,20 @@
 </html>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         var path_file = "{{ $path_file }}";
 
-        $('#icon_camera').on('click', function () {
+        $('#icon_camera').on('click', function() {
             window.location = `{{ url('/img_5_takephoto') }}`;
         })
 
 
-        $('#btn_icon_dowload').on('click', function () {
+        $('#btn_icon_dowload').on('click', function() {
             window.location = `{{ url('/Download/${path_file}') }}`;
         })
 
 
 
     })
-
 </script>
